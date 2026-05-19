@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CURP &amp; RFC Generator — Tax ID Generator</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="../index.html">Tax ID Generator</a>
+    <span class="breadcrumb">/ CURP &amp; RFC — Mexico</span>
+  </header>
+
+  <main class="page-generator">
+    <div class="card">
+      <h2><span class="fi fi-mx h2-flag"></span> CURP &amp; RFC for MXN deposits</h2>
+
+      <label for="firstName">First Name *</label>
+      <input type="text" id="firstName" placeholder="e.g. Juan">
+
+      <label for="lastName1">Paternal Last Name *</label>
+      <input type="text" id="lastName1" placeholder="e.g. García">
+
+      <label for="lastName2">Maternal Last Name</label>
+      <input type="text" id="lastName2" placeholder="e.g. López">
+
+      <label for="birthDate">Birth Date *</label>
+      <input type="date" id="birthDate">
+
+      <label for="gender">Gender *</label>
+      <select id="gender">
+        <option value="H">Male</option>
+        <option value="M">Female</option>
+      </select>
+
+      <label for="stateCode">State *</label>
+      <select id="stateCode">
+        <option value="DF">Ciudad de México</option>
+        <option value="AS">Aguascalientes</option>
+        <option value="BC">Baja California</option>
+        <option value="BS">Baja California Sur</option>
+        <option value="CC">Campeche</option>
+        <option value="CL">Coahuila</option>
+        <option value="CM">Colima</option>
+        <option value="CS">Chiapas</option>
+        <option value="CH">Chihuahua</option>
+        <option value="DG">Durango</option>
+        <option value="GT">Guanajuato</option>
+        <option value="GR">Guerrero</option>
+        <option value="HG">Hidalgo</option>
+        <option value="JC">Jalisco</option>
+        <option value="MC">México</option>
+        <option value="MN">Michoacán</option>
+        <option value="MS">Morelos</option>
+        <option value="NT">Nayarit</option>
+        <option value="NL">Nuevo León</option>
+        <option value="OC">Oaxaca</option>
+        <option value="PL">Puebla</option>
+        <option value="QT">Querétaro</option>
+        <option value="QR">Quintana Roo</option>
+        <option value="SP">San Luis Potosí</option>
+        <option value="SL">Sinaloa</option>
+        <option value="SR">Sonora</option>
+        <option value="TC">Tabasco</option>
+        <option value="TS">Tamaulipas</option>
+        <option value="TL">Tlaxcala</option>
+        <option value="VZ">Veracruz</option>
+        <option value="YN">Yucatán</option>
+        <option value="ZS">Zacatecas</option>
+        <option value="NE">Nacido en el Extranjero</option>
+      </select>
+
+      <div class="btn-row">
+        <button type="button" onclick="fillRandom()">Fill Random</button>
+        <button type="button" onclick="generateFromForm()">Generate</button>
+      </div>
+
+      <div id="outputSection" style="display:none">
+        <label for="curpOutput">CURP:</label>
+        <input type="text" id="curpOutput" readonly>
+        <div class="btn-row">
+          <button type="button" id="curpCopyBtn" onclick="copyField('curpOutput', 'curpCopyBtn', 'CURP')">Copy CURP</button>
+        </div>
+
+        <label for="rfcOutput" style="margin-top:12px">RFC:</label>
+        <input type="text" id="rfcOutput" readonly>
+        <div class="btn-row">
+          <button type="button" id="rfcCopyBtn" onclick="copyField('rfcOutput', 'rfcCopyBtn', 'RFC')">Copy RFC</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/curp-rfc.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0f1117;
+  color: #e8eaf0;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.site-header {
+  background: #151824;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #2e3249;
+}
+
+.site-header a {
+  color: #e8eaf0;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.site-header a:hover {
+  color: #62CBC1;
+}
+
+.site-header .breadcrumb {
+  color: #9095a8;
+  font-size: 15px;
+}
+
+/* ── Home page layout ────────────────────────────────── */
+.page-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+}
+
+.page-home h2 {
+  font-size: 24px;
+  color: #e8eaf0;
+  margin: 0;
+}
+
+.page-home .subtitle {
+  color: #9095a8;
+  margin: 8px 0 36px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 20px;
+  max-width: 1080px;
+  width: 100%;
+}
+
+/* ── Generator cards (home page) ────────────────────── */
+.gen-card {
+  background: #1c1f2e;
+  border: 1px solid #2e3249;
+  border-radius: 10px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+}
+
+.gen-card .btn {
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gen-card:hover {
+  border-color: #62CBC1;
+  box-shadow: 0 0 20px rgba(98, 203, 193, 0.2);
+  transform: translateY(-2px);
+}
+
+.gen-card .flag {
+  font-size: 48px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+}
+
+.h2-flag {
+  width: 32px;
+  height: 24px;
+  background-size: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.gen-card .flag .fi {
+  width: 48px;
+  height: 36px;
+  background-size: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.gen-card .country-code {
+  font-size: 14px;
+  font-weight: 700;
+  color: #62CBC1;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  align-self: flex-end;
+  padding-bottom: 2px;
+}
+
+.gen-card h3 {
+  font-size: 20px;
+  color: #e8eaf0;
+  margin: 0;
+}
+
+.gen-card .country {
+  color: #9095a8;
+  font-size: 14px;
+}
+
+.gen-card .currency {
+  background: #0d2e2c;
+  color: #62CBC1;
+  border-radius: 12px;
+  padding: 3px 12px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* ── Generator page layout ───────────────────────────── */
+.page-generator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+  min-height: calc(100vh - 50px);
+}
+
+/* ── Form card ───────────────────────────────────────── */
+.card {
+  background: #1c1f2e;
+  border: 1px solid #2e3249;
+  padding: 24px;
+  border-radius: 10px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.card h2 {
+  margin: 0 0 20px;
+  font-size: 20px;
+  text-align: center;
+  color: #e8eaf0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ── Form elements ───────────────────────────────────── */
+label {
+  display: block;
+  margin: 12px 0 4px;
+  color: #9095a8;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 5px;
+  border: 1px solid #2e3249;
+  background: #252840;
+  color: #e8eaf0;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+  border-color: #62CBC1;
+  box-shadow: 0 0 0 3px rgba(98, 203, 193, 0.15);
+  outline: none;
+}
+
+select option {
+  background: #252840;
+  color: #e8eaf0;
+}
+
+/* ── Buttons ─────────────────────────────────────────── */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+button,
+.btn {
+  padding: 10px 16px;
+  background: linear-gradient(180deg, #82DAD2 0%, #44ACA3 100%);
+  color: #0f2e2c;
+  border: none;
+  border-bottom: 2px solid #378780;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: filter 0.15s, transform 0.1s, box-shadow 0.1s;
+}
+
+button:hover,
+.btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border-bottom-width: 1px;
+}
+
+/* ── Result block (CURP & RFC) ───────────────────────── */
+.result {
+  margin-top: 16px;
+  padding: 12px;
+  background: #1a1d30;
+  border: 1px solid #2e3249;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #e8eaf0;
+  white-space: pre-line;
+  font-size: 14px;
+}
+
+.result:empty {
+  display: none;
+}

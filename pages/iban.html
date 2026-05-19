@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBAN Generator — Tax ID Generator</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="../index.html">Tax ID Generator</a>
+    <span class="breadcrumb">/ IBAN — Europe &amp; Global</span>
+  </header>
+
+  <main class="page-generator">
+    <div class="card">
+      <h2>&#127758; IBAN Generator</h2>
+
+      <label for="ibanCountry">Country</label>
+      <select id="ibanCountry" onchange="generateIBAN()">
+        <option value="AT">Austria</option>
+        <option value="BE">Belgium</option>
+        <option value="HR">Croatia</option>
+        <option value="CZ">Czech Republic</option>
+        <option value="DK">Denmark</option>
+        <option value="EE">Estonia</option>
+        <option value="FI">Finland</option>
+        <option value="FR">France</option>
+        <option value="DE" selected>Germany</option>
+        <option value="GR">Greece</option>
+        <option value="HU">Hungary</option>
+        <option value="IE">Ireland</option>
+        <option value="IT">Italy</option>
+        <option value="LV">Latvia</option>
+        <option value="LT">Lithuania</option>
+        <option value="LU">Luxembourg</option>
+        <option value="MT">Malta</option>
+        <option value="NL">Netherlands</option>
+        <option value="NO">Norway</option>
+        <option value="PL">Poland</option>
+        <option value="PT">Portugal</option>
+        <option value="RO">Romania</option>
+        <option value="SK">Slovakia</option>
+        <option value="SI">Slovenia</option>
+        <option value="ES">Spain</option>
+        <option value="SE">Sweden</option>
+        <option value="CH">Switzerland</option>
+        <option value="TR">Turkey</option>
+        <option value="GB">United Kingdom</option>
+      </select>
+
+      <label for="ibanOutput">IBAN Number</label>
+      <input type="text" id="ibanOutput" readonly>
+
+      <div class="btn-row">
+        <button type="button" onclick="generateIBAN()">Generate</button>
+        <button type="button" id="ibanCopyBtn" onclick="copyIBAN()">Copy</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/iban.js"></script>
+  <script>generateIBAN();</script>
+</body>
+</html>

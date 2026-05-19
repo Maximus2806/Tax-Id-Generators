@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUIT Generator — Tax ID Generator</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="../index.html">Tax ID Generator</a>
+    <span class="breadcrumb">/ CUIT — Argentina</span>
+  </header>
+
+  <main class="page-generator">
+    <div class="card">
+      <h2><span class="fi fi-ar h2-flag"></span> CUIT number for ARS deposits</h2>
+
+      <label for="cuitNumber">CUIT Number:</label>
+      <input type="text" id="cuitNumber" readonly>
+
+      <div class="btn-row">
+        <button type="button" onclick="generateRandomCUIT()">Generate</button>
+        <button type="button" id="cuitCopyBtn" onclick="copyCUIT()">Copy</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/cuit.js"></script>
+</body>
+</html>
