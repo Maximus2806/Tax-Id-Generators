@@ -70,21 +70,16 @@ then visit http://localhost:8000/ (using a server avoids any `file://` clipboard
 
 ## Deploy
 
-> ⚠️ **Verify the exact mechanism** in Vercel Dashboard → project `tax-id-generators` → **Settings → Git**. If the GitHub repo is connected there, deploys are automatic on push (option A). If not, use the manual CLI (option B). Update this section once confirmed.
-
-**A. Auto-deploy from GitHub (standard, assumed default):** commit and push to `main` — Vercel builds and deploys automatically.
+**Manual CLI deploy — confirmed mechanism (2026-06-27).** There is **no** GitHub auto-deploy: pushing or merging to `main` does **not** update production. Vercel deploys from your **local working copy** via the CLI, so always sync `main` first or you'll ship stale code.
 
 ```
-git add -A && git commit -m "..." && git push origin main
+git checkout main && git pull        # get the merged code locally
+vercel --prod                        # deploy local files to production
 ```
 
-**B. Manual CLI deploy:** the project is linked locally (`.vercel/` folder, gitignored). Requires being logged in (`vercel login`):
+The project is linked locally via the gitignored `.vercel/` folder, so `vercel --prod` targets project `tax-id-generators` and auto-aliases to https://tax-id-generators.vercel.app/. The CLI token expires periodically — if you see "The specified token is not valid", the user must run `vercel login` first (interactive; suggest `! vercel login` in-session).
 
-```
-vercel --prod
-```
-
-The CLI token can expire — if you see "The specified token is not valid", run `vercel login` first.
+To verify a deploy, fetch a page and check for the expected content/headers, e.g. `curl -sI https://tax-id-generators.vercel.app/` (look at `Last-Modified`).
 
 ## Gotchas
 
