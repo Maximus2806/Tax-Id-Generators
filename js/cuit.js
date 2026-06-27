@@ -43,3 +43,38 @@ function copyCUIT() {
     setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
   });
 }
+
+// ── CBU / CVU ──────────────────────────────────────────
+// 22 digits in two blocks, each ending in a mod-10 check digit.
+// CBU (bank) and CVU (virtual wallet) share this exact format; the
+// label is cosmetic, so the digits are generated randomly.
+function cbuCheckDigit(digits, weights) {
+  let sum = 0;
+  for (let i = 0; i < digits.length; i++) {
+    sum += digits[i] * weights[i];
+  }
+  return (10 - (sum % 10)) % 10;
+}
+
+function generateCBU() {
+  const block1Weights = [7, 1, 3, 9, 7, 1, 3];
+  const block2Weights = [3, 9, 7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 3];
+
+  const block1Base = Array.from({ length: 7 }, () => Math.floor(Math.random() * 10));
+  const block1 = [...block1Base, cbuCheckDigit(block1Base, block1Weights)];
+
+  const block2Base = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
+  const block2 = [...block2Base, cbuCheckDigit(block2Base, block2Weights)];
+
+  document.getElementById('cbuNumber').value = [...block1, ...block2].join('');
+}
+
+function copyCBU() {
+  const input = document.getElementById('cbuNumber');
+  if (!input.value) return;
+  navigator.clipboard.writeText(input.value).then(() => {
+    const btn = document.getElementById('cbuCopyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+  });
+}
