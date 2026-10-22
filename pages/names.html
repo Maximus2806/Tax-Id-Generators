@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Names &amp; Places Generator — QA Toolbox</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="../index.html">QA Toolbox</a>
+    <span class="breadcrumb">/ Names &amp; Places</span>
+  </header>
+
+  <main class="page-generator">
+    <div class="card card-wide">
+      <h2>&#128100; Names &amp; Places Generator</h2>
+      <p class="card-subtitle">Leave length empty for a random realistic length. Any characters adds Unicode letters (accents, Cyrillic, Greek, CJK); length is counted in characters, not bytes.</p>
+
+      <div class="field-row">
+        <label for="firstNameLength">Name</label>
+        <div class="field-options">
+          <input type="number" id="firstNameLength" min="1" max="1000" placeholder="auto" aria-label="Name length">
+          <label><input type="checkbox" id="firstNameSpaces"> Spaces</label>
+          <label><input type="checkbox" id="firstNameHyphens"> Hyphens</label>
+          <label><input type="checkbox" id="firstNameApostrophes"> Apostrophes</label>
+          <label><input type="checkbox" id="firstNameAny" onchange="toggleAny('firstName')"> Any characters</label>
+        </div>
+        <div class="field-output">
+          <input type="text" id="firstNameOutput" readonly aria-label="Name">
+          <span class="len-badge" id="firstNameLen"></span>
+          <button type="button" class="icon-btn hidden" id="firstNameCopyBtn" title="Copy" aria-label="Copy Name" onclick="copyField('firstName')"></button>
+        </div>
+        <div class="field-error" id="firstNameError"></div>
+      </div>
+
+      <div class="field-row">
+        <label for="lastNameLength">Surname</label>
+        <div class="field-options">
+          <input type="number" id="lastNameLength" min="1" max="1000" placeholder="auto" aria-label="Surname length">
+          <label><input type="checkbox" id="lastNameSpaces"> Spaces</label>
+          <label><input type="checkbox" id="lastNameHyphens"> Hyphens</label>
+          <label><input type="checkbox" id="lastNameApostrophes"> Apostrophes</label>
+          <label><input type="checkbox" id="lastNameAny" onchange="toggleAny('lastName')"> Any characters</label>
+        </div>
+        <div class="field-output">
+          <input type="text" id="lastNameOutput" readonly aria-label="Surname">
+          <span class="len-badge" id="lastNameLen"></span>
+          <button type="button" class="icon-btn hidden" id="lastNameCopyBtn" title="Copy" aria-label="Copy Surname" onclick="copyField('lastName')"></button>
+        </div>
+        <div class="field-error" id="lastNameError"></div>
+      </div>
+
+      <div class="field-row">
+        <label for="fullNameLength">Full name</label>
+        <div class="field-options">
+          <input type="number" id="fullNameLength" min="1" max="1000" placeholder="auto" aria-label="Full name length">
+          <label><input type="checkbox" id="fullNameSpaces"> Spaces</label>
+          <label><input type="checkbox" id="fullNameHyphens"> Hyphens</label>
+          <label><input type="checkbox" id="fullNameApostrophes"> Apostrophes</label>
+          <label><input type="checkbox" id="fullNameAny" onchange="toggleAny('fullName')"> Any characters</label>
+        </div>
+        <div class="field-output">
+          <input type="text" id="fullNameOutput" readonly aria-label="Full name">
+          <span class="len-badge" id="fullNameLen"></span>
+          <button type="button" class="icon-btn hidden" id="fullNameCopyBtn" title="Copy" aria-label="Copy Full name" onclick="copyField('fullName')"></button>
+        </div>
+        <div class="field-error" id="fullNameError"></div>
+      </div>
+
+      <div class="field-row">
+        <label for="cityLength">City</label>
+        <div class="field-options">
+          <input type="number" id="cityLength" min="1" max="1000" placeholder="auto" aria-label="City length">
+          <label><input type="checkbox" id="citySpaces"> Spaces</label>
+          <label><input type="checkbox" id="cityHyphens"> Hyphens</label>
+          <label><input type="checkbox" id="cityApostrophes"> Apostrophes</label>
+          <label><input type="checkbox" id="cityAny" onchange="toggleAny('city')"> Any characters</label>
+        </div>
+        <div class="field-output">
+          <input type="text" id="cityOutput" readonly aria-label="City">
+          <span class="len-badge" id="cityLen"></span>
+          <button type="button" class="icon-btn hidden" id="cityCopyBtn" title="Copy" aria-label="Copy City" onclick="copyField('city')"></button>
+        </div>
+        <div class="field-error" id="cityError"></div>
+      </div>
+
+      <div class="field-row">
+        <label for="streetLength">Street</label>
+        <div class="field-options">
+          <input type="number" id="streetLength" min="1" max="1000" placeholder="auto" aria-label="Street length">
+          <label><input type="checkbox" id="streetSpaces"> Spaces</label>
+          <label><input type="checkbox" id="streetHyphens"> Hyphens</label>
+          <label><input type="checkbox" id="streetApostrophes"> Apostrophes</label>
+          <label><input type="checkbox" id="streetAny" onchange="toggleAny('street')"> Any characters</label>
+        </div>
+        <div class="field-output">
+          <input type="text" id="streetOutput" readonly aria-label="Street">
+          <span class="len-badge" id="streetLen"></span>
+          <button type="button" class="icon-btn hidden" id="streetCopyBtn" title="Copy" aria-label="Copy Street" onclick="copyField('street')"></button>
+        </div>
+        <div class="field-error" id="streetError"></div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" onclick="generateAll()">Generate</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/names.js"></script>
+  <script>initNames();</script>
+</body>
+</html>

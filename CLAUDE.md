@@ -1,6 +1,8 @@
-# Tax ID & IBAN Generators
+# QA Toolbox
 
-Static web app that generates **format-valid (but fake) tax identification numbers and IBANs** for QA/testing — e.g. filling deposit forms during international payment testing. Every value passes the real check-digit/checksum algorithm for its country, so it looks valid to validators, but does not belong to a real person or account.
+Static web app that generates **format-valid (but fake) test data** for QA: tax identification numbers, IBANs, crypto addresses, and names/cities/streets of an exact length — e.g. filling deposit forms during international payment testing or boundary-testing form validations. Every ID passes the real check-digit/checksum algorithm, so it looks valid to validators, but does not belong to a real person or account.
+
+- **Site name:** "QA Toolbox" — used in every page's `.site-header` link and as the `<title>` suffix (`<Generator> — QA Toolbox`). Home heading "Test Data Generators". The domain and repo keep the old `tax-id-generators` name.
 
 - **Live:** https://tax-id-generators.vercel.app/
 - **Repo:** https://github.com/Maximus2806/Tax-Id-Generators (branch `main`)
@@ -18,6 +20,7 @@ A home page (`index.html`) with a grid of cards, one per generator. Each card li
 | RUT        | Chile (CLP)        | `pages/rut.html` + `js/rut.js`           |
 | IBAN       | 29 countries       | `pages/iban.html` + `js/iban.js`         |
 | Crypto     | EVM, BTC, Solana   | `pages/crypto.html` + `js/crypto.js`     |
+| Names      | Name, Surname, Full name, City, Street | `pages/names.html` + `js/names.js` |
 
 ## Tech stack & conventions
 
@@ -48,6 +51,13 @@ Algorithms are country-specific and intentionally faithful:
   - Functions are `async` and need `crypto.subtle` → secure context (https or `localhost`; `file://` may fail).
   - TRON — 20 random bytes, **Base58Check** with version `0x41` (starts with `T`, 34 chars). **For future use — hidden in the UI**: the `<option>` is commented out in `pages/crypto.html`, the logic in `cryptoFormats.tron` stays active. To enable, uncomment the option and update the home card ("ERC20 · Bitcoin · Solana · TRON", "6 formats").
 
+- **Names** — realistic Name / Surname / Full name / City / Street of an **exact length** (1–1000) for boundary testing of validations. Plan: `Specs/names-generator-plan.md`.
+  - Built-in ASCII dictionaries indexed by length; when no word of the needed length exists, a letter-level **order-2 Markov chain** (order-1 backoff) trained on the same dictionaries synthesizes one. Words longer than 14 letters are glued from 4–9 letter chunks.
+  - A value is a list of words → hyphen-joined parts (`buildValue`). Words are space-joined when Spaces is on, CamelCase-glued otherwise (`JohnSmith`). Long values grow by ~1 word per 8 chars (`TheodoreFlorenceIsabel`); a single-word field (Name/Surname/City) with Hyphens but no Spaces grows hyphen parts instead (`Mary-Jane-Anna-Rose`). Spaces / Hyphens / Apostrophes mean the symbol is **required**, not just allowed; min length is `1 + 2 × flags` (`minLength`). Apostrophes use real positions only: prefix `O'`/`D'`/`L'` or possessive `'s`, ASCII `'` only.
+  - **Any characters** ticks and locks the other three, makes them optional, and swaps 30–60% of letters for Unicode letters (diacritics, Cyrillic, Greek, CJK). Only precomposed BMP characters, so `value.length` equals the visible length.
+  - `validateValue` re-checks every value before display (max 5 attempts). Run `selfTestNames()` in the page console after changes — it must return `true`.
+  - One page with a shared Generate button; the page is not generated on load (copy icons appear after Generate). Uses the shared multi-field CSS classes (`.card-wide`, `.card-subtitle`, `.field-row`, `.field-options`, `.field-output`, `.icon-btn`, `.field-error`) — reuse them for future multi-field generators.
+
 ## Design / theme
 
 Dark theme defined entirely in `css/style.css` (single shared stylesheet). Key tokens:
@@ -55,7 +65,7 @@ Dark theme defined entirely in `css/style.css` (single shared stylesheet). Key t
 - Text `#e8eaf0`, muted `#9095a8`
 - Accent teal `#62CBC1`; primary buttons use gradient `#82DAD2 → #44ACA3`
 
-Two page layouts: `.page-home` (cards grid) and `.page-generator` (centered `.card` form). New generator pages should reuse `.page-generator` + `.card` + the shared form/button classes — don't introduce per-page CSS.
+Two page layouts: `.page-home` (cards grid) and `.page-generator` (centered `.card` form). `.site-header` is sticky (stays on top while scrolling) on every page. Home card text (`.country`) must fit one line at the ~200px card width (≈24 chars), otherwise the whole row grows taller. New generator pages should reuse `.page-generator` + `.card` + the shared form/button classes — don't introduce per-page CSS.
 
 ## Adding a new generator (common task)
 
