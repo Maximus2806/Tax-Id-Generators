@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Address Generator — Tax ID Generator</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="../index.html">Tax ID Generator</a>
+    <span class="breadcrumb">/ Crypto Wallets</span>
+  </header>
+
+  <main class="page-generator">
+    <div class="card">
+      <h2>&#129689; Crypto Address Generator</h2>
+
+      <label for="cryptoFormat">Network / Format</label>
+      <select id="cryptoFormat" onchange="generateCrypto()">
+        <optgroup label="Ethereum / EVM">
+          <option value="evm" selected>ERC20 / EVM (0x…)</option>
+        </optgroup>
+        <optgroup label="Bitcoin">
+          <option value="btc-p2pkh">Legacy P2PKH (1…)</option>
+          <option value="btc-p2sh">P2SH (3…)</option>
+          <option value="btc-p2wpkh">Native SegWit (bc1q…)</option>
+        </optgroup>
+        <optgroup label="Solana">
+          <option value="sol">Solana (Base58)</option>
+        </optgroup>
+        <!-- TRON: for future use, hidden until the platform supports it. Logic lives in cryptoFormats.tron (js/crypto.js).
+        <optgroup label="TRON">
+          <option value="tron">TRON / TRC20 (T…)</option>
+        </optgroup>
+        -->
+      </select>
+
+      <label for="cryptoOutput">Wallet Address</label>
+      <input type="text" id="cryptoOutput" placeholder="e.g. 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed" readonly>
+
+      <div class="btn-row">
+        <button type="button" onclick="generateCrypto()">Generate</button>
+        <button type="button" id="cryptoCopyBtn" onclick="copyCrypto()">Copy</button>
+      </div>
+
+      <div class="result" id="cryptoHint"></div>
+    </div>
+  </main>
+
+  <script src="../js/crypto.js"></script>
+  <script>generateCrypto();</script>
+</body>
+</html>

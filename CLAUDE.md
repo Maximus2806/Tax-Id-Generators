@@ -17,15 +17,16 @@ A home page (`index.html`) with a grid of cards, one per generator. Each card li
 | CURP & RFC | Mexico (MXN)       | `pages/curp-rfc.html` + `js/curp-rfc.js` |
 | RUT        | Chile (CLP)        | `pages/rut.html` + `js/rut.js`           |
 | IBAN       | 29 countries       | `pages/iban.html` + `js/iban.js`         |
+| Crypto     | EVM, BTC, Solana   | `pages/crypto.html` + `js/crypto.js`     |
 
 ## Tech stack & conventions
 
 **Plain static site — no build step, no framework, no npm.** There is no `package.json`, no bundler, no transpiler. Just HTML, one shared CSS file, and one vanilla-JS file per generator. Keep it this way unless we deliberately decide otherwise.
 
 - **No ES modules / imports.** Each `js/*.js` defines plain global functions. HTML wires them up with inline `onclick="..."` / `onchange="..."` attributes.
-- **No external runtime dependencies.** The only third-party asset is the `flag-icons` CSS loaded from jsDelivr CDN (`<link>` in the `<head>`). Country flags use `<span class="fi fi-XX">`. The IBAN page uses a 🌐 emoji instead of a flag and does **not** load flag-icons.
+- **No external runtime dependencies.** The only third-party asset is the `flag-icons` CSS loaded from jsDelivr CDN (`<link>` in the `<head>`). Country flags use `<span class="fi fi-XX">`. The IBAN page (🌐) and Crypto page (🪙) use an emoji instead of a flag and do **not** load flag-icons.
 - **DOM access** is always `document.getElementById(...)`; results go into `readonly` `<input>` fields.
-- **Randomness** uses `Math.random()` throughout (test data, not cryptographic).
+- **Randomness** uses `Math.random()` throughout (test data, not cryptographic). Exception: `crypto.js` uses `crypto.getRandomValues()` because it works on byte arrays.
 - **Language:** UI text is English. Keep new UI English unless asked.
 
 ### Per-generator file conventions
@@ -40,6 +41,12 @@ Algorithms are country-specific and intentionally faithful:
 - **RUT** — mod-11 DV with cycling 2→7 multiplier; DV can be `K` or `0`.
 - **CURP/RFC** — builds the code from name/surname letters + birth date + gender + state code (`mexicanStates` map); `cleanString` strips accents. CURP adds state + consonants + 2 random digits; RFC adds a 3-letter random homoclave. `curp-rfc.js` also has `fillRandom()` to populate the form with random sample data.
 - **IBAN** — `bbanFormats` table holds each country's BBAN segment layout (`{ t: 'n'|'a', l: length, codes?: [...] }`); `codes` lists realistic bank identifiers to pick from. Check digits via the standard **mod-97** algorithm (`computeCheckDigits`), then `validateIBAN` confirms `mod97 === 1` before display. Output is grouped in blocks of 4.
+- **Crypto** — address only, never a private key (QA just needs to pass address validation). `cryptoFormats` table maps each `<select>` value to `generate()` / `validate(address)`; `generateCrypto()` re-validates before display (max 5 attempts). Random bytes stand in for the pubkey hash, then the real encoding is applied:
+  - EVM — 20 bytes hex + **EIP-55** checksum via a hand-written **Keccak-256** (Web Crypto has none; it is *not* SHA3-256).
+  - BTC (mainnet only) P2PKH/P2SH — **Base58Check** (double SHA-256); P2WPKH — **Bech32**. Testnet addresses and Taproot (`bc1p`, Bech32m) were deliberately removed: our platform's validation rejects them — don't re-add.
+  - Solana — real Ed25519 public key from `crypto.subtle.generateKey` (on-curve), Base58; falls back to random 32 bytes if the browser lacks Ed25519.
+  - Functions are `async` and need `crypto.subtle` → secure context (https or `localhost`; `file://` may fail).
+  - TRON — 20 random bytes, **Base58Check** with version `0x41` (starts with `T`, 34 chars). **For future use — hidden in the UI**: the `<option>` is commented out in `pages/crypto.html`, the logic in `cryptoFormats.tron` stays active. To enable, uncomment the option and update the home card ("ERC20 · Bitcoin · Solana · TRON", "6 formats").
 
 ## Design / theme
 
